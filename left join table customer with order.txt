@@ -1,0 +1,24 @@
+# left join /content/customers.csv with /content/orders.csv, save the result as /content/gabung01.csv
+
+import pandas as pd
+# Load the CSV files into pandas DataFrames
+try:
+    df_customers = pd.read_csv('/content/customers.csv')
+    df_orders = pd.read_csv('/content/orders.csv')
+except FileNotFoundError:
+    print("Make sure '/content/customers.csv' and '/content/orders.csv' are in the correct location.")
+    exit()
+
+# df_merged_left = pd.merge(df_customers, df_orders, left_on='CustID', right_on='CustomerID', how='left')
+try:
+    df_merged_left = pd.merge(df_customers, df_orders, on='CustomerID', how='left')
+
+    # Save the result of the left join to a new CSV file
+    df_merged_left.to_csv('/content/gabung01.csv', index=False)
+
+    print("Left join successful. Result saved as '/content/gabung01.csv'")
+except KeyError:
+    print("Error: 'CustomerID' column not found in one or both of the dataframes.")
+    print("Please check the column names in '/content/customers.csv' and '/content/orders.csv' and adjust the 'on' parameter in pd.merge.")
+except Exception as e:
+    print(f"An unexpected error occurred during the join or saving: {e}")

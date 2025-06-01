@@ -1,0 +1,44 @@
+# cleaning and normalize table /content/Customers.xlsx, save the result as /content/customers.csv
+
+import pandas as pd
+
+# Load the Excel file
+try:
+    df_customers = pd.read_excel('/content/Customers.xlsx')
+except FileNotFoundError:
+    print("Error: '/content/Customers.xlsx' not found.")
+    exit()
+
+# --- Data Cleaning ---
+
+# Handle missing values (Example: fill missing values in 'City' column with 'Unknown')
+# You will need to adapt this based on your actual data and how you want to handle missing values
+if 'City' in df_customers.columns:
+    df_customers['City'].fillna('Unknown', inplace=True)
+
+# Remove duplicate rows (Example: remove rows where all columns are the same)
+df_customers.drop_duplicates(inplace=True)
+
+# Handle inconsistent data formats (Example: convert a column to lowercase if it's text)
+# Replace 'CustomerName' with the actual column you want to normalize case
+if 'CustomerName' in df_customers.columns:
+    df_customers['CustomerName'] = df_customers['CustomerName'].str.lower()
+
+# Remove leading/trailing whitespace from string columns
+for col in df_customers.select_dtypes(include=['object']):
+    df_customers[col] = df_customers[col].str.strip()
+
+# --- Data Normalization (Example: Min-Max Scaling for a numeric column) ---
+# If you have numeric columns that need normalization, you can apply methods like Min-Max scaling or Z-score standardization.
+# Replace 'NumericColumn' with the name of the numeric column you want to normalize.
+# from sklearn.preprocessing import MinMaxScaler
+# if 'NumericColumn' in df_customers.columns:
+#     scaler = MinMaxScaler()
+#     df_customers['NumericColumn_normalized'] = scaler.fit_transform(df_customers[['NumericColumn']])
+
+# --- Save the cleaned and normalized data to a CSV file ---
+try:
+    df_customers.to_csv('/content/customers.csv', index=False)
+    print("Cleaned and normalized data saved to '/content/customers.csv'")
+except Exception as e:
+    print(f"Error saving file: {e}")

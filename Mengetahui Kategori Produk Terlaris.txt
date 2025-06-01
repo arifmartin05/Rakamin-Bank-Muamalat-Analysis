@@ -1,0 +1,24 @@
+# Mengetahui Kategori Produk Terlaris:
+
+-- SELECT
+--     CategoryName,
+--     COUNT(*) AS Jumlah_Pembelian,
+--     SUM(Quantity) AS Total_Quantity,
+--     SUM(Total_sales) AS Total_Pendapatan
+-- FROM
+--     gabung06
+-- GROUP BY
+--     CategoryName
+-- ORDER BY
+--     Jumlah_Pembelian DESC;
+SELECT
+  CategoryName,
+  COUNT(*) AS Jumlah_Pembelian,
+  SUM(Quantity) AS Total_Quantity,
+  SUM(Total_sales) AS Total_Pendapatan
+FROM
+  `manifest-shade-460813-m8`.`Bank_Muamalat`.`gabung06` AS gabung06
+GROUP BY
+  CategoryName
+ORDER BY
+  Jumlah_Pembelian DESC;

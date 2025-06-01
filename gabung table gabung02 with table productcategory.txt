@@ -1,0 +1,35 @@
+SELECT *.*
+FROM /content/gabung02.csv
+FULL outer JOIN /content/ProductCategory.csv
+ON gabung02.CategoryID = ProductCategory.CategoryID;
+save the result as /content/gabung03.csv
+
+-------------------
+
+# prompt: SELECT *.*
+# FROM /content/gabung02.csv
+# FULL outer JOIN /content/ProductCategory.csv
+# ON gabung02.CategoryID = ProductCategory.CategoryID;
+# save the result as /content/gabung03.csv
+
+import pandas as pd
+# Load the CSV files into pandas DataFrames
+try:
+    df_gabung02 = pd.read_csv('/content/gabung02.csv')
+    df_product_category = pd.read_csv('/content/ProductCategory.csv')
+except FileNotFoundError:
+    print("Make sure '/content/gabung02.csv' and '/content/ProductCategory.csv' are in the correct location.")
+    exit()
+
+   df_merged_full = pd.merge(df_gabung02, df_product_category, on='CategoryID', how='outer', suffixes=('_gabung02', '_productcategory'))
+
+  
+    df_merged_full.to_csv('/content/gabung03.csv', index=False)
+
+    print("Full outer join successful. Result saved as '/content/gabung03.csv'")
+except KeyError:
+    print("Error: 'CategoryID' column not found in one or both of the dataframes.")
+    print("Please check the column names in '/content/gabung02.csv' and '/content/ProductCategory.csv'.")
+    print("Ensure the renaming of the 'Category' column in gabung02.csv to 'CategoryID' was successful or adjust the 'on' parameter accordingly.")
+except Exception as e:
+    print(f'An unexpected error occurred during the join or saving: {e}')

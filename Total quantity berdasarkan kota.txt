@@ -1,0 +1,25 @@
+# cari Total quantity berdasarkan kota
+
+import pandas_gbq
+
+sql = """
+SELECT CustomerCity, SUM(Quantity) AS TotalQuantity
+FROM `manifest-shade-460813-m8.Bank_Muamalat.gabung04`
+GROUP BY CustomerCity
+"""
+df = pandas_gbq.read_gbq(sql, project_id="manifest-shade-460813-m8", dialect="standard")
+
+df
+
+
+
+
+CustomerCity	TotalQuantity
+0	None	NaN
+1	San Francisco	90.0
+2	Fort Lauderdale	36.0
+3	Dallas	84.0
+4	Alexandria	8.0
+...	...	...
+377	Palatine	3.0
+378	Fort Collins	4.0

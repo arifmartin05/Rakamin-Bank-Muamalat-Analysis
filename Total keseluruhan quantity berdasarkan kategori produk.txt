@@ -1,0 +1,25 @@
+# cari Total keseluruhan quantity berdasarkan kategori produk
+
+import pandas_gbq
+
+sql = """
+SELECT CategoryName, SUM(Quantity) AS TotalQuantity
+FROM `manifest-shade-460813-m8.Bank_Muamalat.gabung04`
+GROUP BY CategoryName
+"""
+df = pandas_gbq.read_gbq(sql, project_id="manifest-shade-460813-m8", dialect="standard")
+
+df
+
+
+CategoryName	TotalQuantity
+0	Blueprints	1618.0
+1	None	NaN
+2	Drone Kits	1515.0
+3	Drones	1227.0
+4	eBooks	3123.0
+5	Robot Kits	1037.0
+6	Robots	1053.0
+7	Training Videos	2081.0
+
+

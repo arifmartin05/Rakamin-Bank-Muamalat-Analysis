@@ -1,0 +1,32 @@
+# Mengetahui Pelanggan dengan Pembelian Terbanyak
+
+-- SELECT
+--     CustomerID,
+--     FirstName,
+--     LastName,
+--     COUNT(*) AS Jumlah_Pembelian,
+--     SUM(Total_sales) AS Total_Pengeluaran
+-- FROM
+--     gabung06
+-- GROUP BY
+--     CustomerID, FirstName, LastName
+-- ORDER BY
+--     Total_Pengeluaran DESC
+-- LIMIT 10;
+SELECT
+  gabung06.CustomerID,
+  gabung06.FirstName,
+  gabung06.LastName,
+  COUNT(*) AS Jumlah_Pembelian,
+  SUM(gabung06.Total_sales) AS Total_Pengeluaran
+FROM
+  `manifest-shade-460813-m8`.`Bank_Muamalat`.`gabung06` AS gabung06
+GROUP BY
+  gabung06.CustomerID,
+  gabung06.FirstName,
+  gabung06.LastName
+ORDER BY
+  Total_Pengeluaran DESC
+LIMIT
+  10;
+

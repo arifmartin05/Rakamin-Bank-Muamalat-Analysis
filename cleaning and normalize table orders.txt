@@ -1,0 +1,46 @@
+# cleaning and normalize table /content/Orders.xlsx, save the result as /content/orders.csv
+
+import pandas as pd
+# Load the Excel file
+try:
+    df_orders = pd.read_excel('/content/Orders.xlsx')
+except FileNotFoundError:
+    print("Error: '/content/Orders.xlsx' not found.")
+    exit()
+
+# --- Data Cleaning ---
+
+# Handle missing values (Example: fill missing values in 'Amount' column with 0)
+# You will need to adapt this based on your actual data and how you want to handle missing values
+if 'Amount' in df_orders.columns:
+    df_orders['Amount'].fillna(0, inplace=True)
+
+# Remove duplicate rows (Example: remove rows where all columns are the same)
+df_orders.drop_duplicates(inplace=True)
+
+# Handle inconsistent data formats (Example: convert a column to datetime)
+# Replace 'OrderDate' with the actual column name if it's a date column
+if 'OrderDate' in df_orders.columns:
+    # Attempt to convert to datetime, handling potential errors
+    df_orders['OrderDate'] = pd.to_datetime(df_orders['OrderDate'], errors='coerce')
+    # Optionally, handle rows that could not be converted (e.g., drop them or fill NaT)
+    # df_orders.dropna(subset=['OrderDate'], inplace=True) # Example: drop rows with invalid dates
+
+# Remove leading/trailing whitespace from string columns
+for col in df_orders.select_dtypes(include=['object']):
+    df_orders[col] = df_orders[col].str.strip()
+
+# --- Data Normalization (Example: Min-Max Scaling for a numeric column) ---
+# If you have numeric columns that need normalization, you can apply methods like Min-Max scaling or Z-score standardization.
+# Replace 'NumericColumn' with the name of the numeric column you want to normalize.
+# from sklearn.preprocessing import MinMaxScaler
+# if 'NumericColumn' in df_orders.columns:
+#     scaler = MinMaxScaler()
+#     df_orders['NumericColumn_normalized'] = scaler.fit_transform(df_orders[['NumericColumn']])
+
+# --- Save the cleaned and normalized data to a CSV file ---
+try:
+    df_orders.to_csv('/content/orders.csv', index=False)
+    print("Cleaned and normalized data saved to '/content/orders.csv'")
+except Exception as e:
+    print(f"Error saving file: {e}")

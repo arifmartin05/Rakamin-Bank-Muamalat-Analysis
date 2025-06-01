@@ -1,0 +1,11 @@
+# dari tabel di /content/tabel-coba03.csv , sort ascending berdasarkan kolom Order_Date; save hasilnya di  /content/tabel-coba04.csv
+
+import pandas as pd
+# Load the CSV file
+df = pd.read_csv('/content/tabel-coba03.csv')
+
+# Sort the DataFrame by 'Order_Date' in ascending order
+df_sorted = df.sort_values(by='Order_Date', ascending=True)
+
+# Save the sorted DataFrame to a new CSV file
+df_sorted.to_csv('/content/tabel-coba04.csv', index=False)

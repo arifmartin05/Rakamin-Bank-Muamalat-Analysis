@@ -1,0 +1,22 @@
+# cari Top 5 kategori produk yang paling tinggi quantity nya
+
+import pandas_gbq
+
+sql = """
+SELECT CategoryName, SUM(Quantity) AS TotalQuantity
+FROM `manifest-shade-460813-m8.Bank_Muamalat.gabung04`
+GROUP BY CategoryName
+ORDER BY TotalQuantity DESC
+LIMIT 5
+"""
+df = pandas_gbq.read_gbq(sql, "manifest-shade-460813-m8", dialect="standard")
+df
+
+
+
+	CategoryName	TotalQuantity
+0	eBooks	3123.0
+1	Training Videos	2081.0
+2	Blueprints	1618.0
+3	Drone Kits	1515.0
+4	Drones	1227.0

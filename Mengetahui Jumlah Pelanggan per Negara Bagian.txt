@@ -1,0 +1,20 @@
+# Mengetahui Jumlah Pelanggan per Negara Bagian
+
+-- SELECT
+--     CustomerState,
+--     COUNT(DISTINCT CustomerID) AS Jumlah_Pelanggan
+-- FROM
+--     gabung06
+-- GROUP BY
+--     CustomerState
+-- ORDER BY
+--     Jumlah_Pelanggan DESC;
+SELECT
+  CustomerState,
+  COUNT(DISTINCT CustomerID) AS Jumlah_Pelanggan
+FROM
+  `manifest-shade-460813-m8`.`Bank_Muamalat`.`gabung06` AS gabung06
+GROUP BY
+  1
+ORDER BY
+  Jumlah_Pelanggan DESC;

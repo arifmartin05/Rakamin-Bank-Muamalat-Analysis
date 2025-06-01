@@ -1,0 +1,25 @@
+# cari Top 5 kategori produk yang paling tinggi salesnya
+
+import pandas_gbq
+
+sql = """
+SELECT CategoryName, SUM(Total_sales) AS TotalSales
+FROM `manifest-shade-460813-m8.Bank_Muamalat.gabung04`
+GROUP BY CategoryName
+ORDER BY TotalSales DESC
+LIMIT 5
+"""
+df = pandas_gbq.read_gbq(sql, project_id="manifest-shade-460813-m8", dialect="standard")
+df
+
+
+
+CategoryName	TotalSales
+0	Robots	743505.00
+1	Drones	477447.00
+2	Robot Kits	216437.00
+3	Drone Kits	161242.50
+4	Training Videos	80716.15
+
+
+

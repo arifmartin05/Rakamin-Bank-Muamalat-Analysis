@@ -1,0 +1,22 @@
+# Mengetahui Tren Penjualan Bulanan
+
+-- SELECT
+--     strftime('%Y-%m', Date) AS Bulan,
+--     COUNT(*) AS Jumlah_Pembelian,
+--     SUM(Total_sales) AS Total_Pendapatan
+-- FROM
+--     gabung06
+-- GROUP BY
+--     Bulan
+-- ORDER BY
+--     Bulan;
+SELECT
+  FORMAT_DATE('%Y-%m', Date) AS Bulan,
+  COUNT(*) AS Jumlah_Pembelian,
+  SUM(Total_sales) AS Total_Pendapatan
+FROM
+  `manifest-shade-460813-m8.Bank_Muamalat.gabung06`
+GROUP BY
+  1
+ORDER BY
+  Bulan

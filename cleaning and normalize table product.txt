@@ -1,0 +1,44 @@
+# cleaning and normalize table /content/Productsxlsx, save the result as /content/products.csv
+
+import pandas as pd
+# Load the Excel file
+try:
+    df_products = pd.read_excel('/content/Products.xlsx')
+except FileNotFoundError:
+    print("Error: '/content/Products.xlsx' not found.")
+    exit()
+
+# --- Data Cleaning ---
+
+# Handle missing values (Example: fill missing values in 'ProductName' column with 'Unknown')
+# You will need to adapt this based on your actual data and how you want to handle missing values
+if 'ProductName' in df_products.columns:
+    df_products['ProductName'].fillna('Unknown', inplace=True)
+
+# Remove duplicate rows (Example: remove rows where all columns are the same)
+df_products.drop_duplicates(inplace=True)
+
+# Handle inconsistent data formats (Example: convert a column to lowercase if it's text)
+# Replace 'ProductName' with the actual column you want to normalize case
+if 'ProductName' in df_products.columns:
+    df_products['ProductName'] = df_products['ProductName'].str.lower()
+
+# Remove leading/trailing whitespace from string columns
+for col in df_products.select_dtypes(include=['object']):
+    df_products[col] = df_products[col].str.strip()
+
+# --- Data Normalization (Example: Min-Max Scaling for a numeric column) ---
+# If you have numeric columns that need normalization, you can apply methods like Min-Max scaling or Z-score standardization.
+# Replace 'Price' with the name of the numeric column you want to normalize.
+# from sklearn.preprocessing import MinMaxScaler
+# if 'Price' in df_products.columns:
+#     scaler = MinMaxScaler()
+#     df_products['Price_normalized'] = scaler.fit_transform(df_products[['Price']])
+
+
+# --- Save the cleaned and normalized data to a CSV file ---
+try:
+    df_products.to_csv('/content/products.csv', index=False)
+    print("Cleaned and normalized data saved to '/content/products.csv'")
+except Exception as e:
+    print(f"Error saving file: {e}")

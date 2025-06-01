@@ -1,0 +1,17 @@
+# cari Total keseluruhan sales
+
+import pandas_gbq
+
+sql = """
+SELECT SUM(Total_sales) AS Total_Sales
+FROM `manifest-shade-460813-m8.Bank_Muamalat.gabung04`
+"""
+df = pandas_gbq.read_gbq(sql, project_id="manifest-shade-460813-m8", dialect="standard")
+
+total_sales = df['Total_Sales'][0]
+total_sales
+
+
+
+
+1754750.5699999754

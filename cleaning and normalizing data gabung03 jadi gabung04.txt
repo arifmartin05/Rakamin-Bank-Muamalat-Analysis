@@ -1,0 +1,24 @@
+-- cleaning and normalizing data at manifest-shade-460813-m8.Bank_Muamalat.gabung03, and save the result as manifest-shade-460813-m8.Bank_Muamalat.gabung04
+
+
+SELECT
+  CustomerID,
+  TRIM(FirstName) AS FirstName,
+  TRIM(LastName) AS LastName,
+  REPLACE(CustomerEmail, '#mailto:', '') AS CustomerEmail,
+  REPLACE(CustomerPhone, '-', '') AS CustomerPhone,
+  TRIM(CustomerAddress) AS CustomerAddress,
+  TRIM(CustomerCity) AS CustomerCity,
+  TRIM(CustomerState) AS CustomerState,
+  CustomerZip,
+  OrderID,
+  Date,
+  TRIM(ProdNumber) AS ProdNumber,
+  Quantity,
+  TRIM(ProdName) AS ProdName,
+  CategoryID,
+  Price,
+  TRIM(CategoryName) AS CategoryName,
+  TRIM(CategoryAbbreviation) AS CategoryAbbreviation
+FROM
+  `manifest-shade-460813-m8`.`Bank_Muamalat`.`gabung03`;

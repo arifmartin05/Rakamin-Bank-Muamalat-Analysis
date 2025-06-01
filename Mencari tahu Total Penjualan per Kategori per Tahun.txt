@@ -1,0 +1,25 @@
+# Mencari tahu Total Penjualan per Kategori per Tahun
+
+
+-- SELECT
+--     strftime('%Y', Date) AS Tahun,
+--     CategoryName,
+--     SUM(Total_sales) AS Total_Pendapatan
+-- FROM
+--     gabung06
+-- GROUP BY
+--     Tahun, CategoryName
+-- ORDER BY
+--     Tahun, Total_Pendapatan DESC;
+SELECT
+  FORMAT_DATE('%Y', Date) AS Tahun,
+  CategoryName,
+  SUM(Total_sales) AS Total_Pendapatan
+FROM
+  `manifest-shade-460813-m8`.`Bank_Muamalat`.`gabung06` AS gabung06
+GROUP BY
+  1,
+  2
+ORDER BY
+  Tahun,
+  Total_Pendapatan DESC;

@@ -1,0 +1,43 @@
+# cleaning and normalize table /content/ProductsCategory.xlsx, save the result as /content/productcategory.csv
+
+import pandas as pd
+
+!pip install pandas openpyxl
+
+# Load the Excel file
+try:
+    df_product_category = pd.read_excel('/content/ProductsCategory.xlsx')
+except FileNotFoundError:
+    print("Error: '/content/ProductsCategory.xlsx' not found.")
+    exit()
+
+# --- Data Cleaning ---
+
+# Handle missing values (Example: fill missing values in a relevant column)
+# Replace 'RelevantColumn' with a column name from ProductsCategory.xlsx
+# For instance, if there's a 'Description' column:
+# if 'Description' in df_product_category.columns:
+#     df_product_category['Description'].fillna('No description', inplace=True)
+
+# Remove duplicate rows
+df_product_category.drop_duplicates(inplace=True)
+
+# Handle inconsistent data formats (Example: convert text columns to lowercase)
+# Adapt this based on the columns in your ProductsCategory.xlsx file
+for col in df_product_category.select_dtypes(include=['object']):
+    df_product_category[col] = df_product_category[col].str.strip().str.lower()
+
+# --- Data Normalization (Example: If there are numeric columns needing scaling) ---
+# If you have numeric columns in ProductsCategory.xlsx that need normalization,
+# uncomment and adapt the following code. Replace 'NumericColumn'
+# from sklearn.preprocessing import MinMaxScaler
+# if 'NumericColumn' in df_product_category.columns:
+#     scaler = MinMaxScaler()
+#     df_product_category['NumericColumn_normalized'] = scaler.fit_transform(df_product_category[['NumericColumn']])
+
+# --- Save the cleaned and normalized data to a CSV file ---
+try:
+    df_product_category.to_csv('/content/productcategory.csv', index=False)
+    print("Cleaned and normalized data saved to '/content/productcategory.csv'")
+except Exception as e:
+    print(f"Error saving file: {e}")

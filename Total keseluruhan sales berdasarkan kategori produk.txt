@@ -1,0 +1,22 @@
+# cari Total keseluruhan sales berdasarkan kategori produk
+
+import pandas_gbq
+
+sql = """
+SELECT CategoryName, SUM(Total_sales) AS TotalSales
+FROM `manifest-shade-460813-m8.Bank_Muamalat.gabung04`
+GROUP BY CategoryName
+"""
+df = pandas_gbq.read_gbq(sql, "manifest-shade-460813-m8", dialect="standard")
+df
+
+
+CategoryName	TotalSales
+0	Blueprints	16434.51
+1	None	NaN
+2	Drone Kits	161242.50
+3	Drones	477447.00
+4	eBooks	58968.41
+5	Robot Kits	216437.00
+6	Robots	743505.00
+7	Training Videos	80716.15

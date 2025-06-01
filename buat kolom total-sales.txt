@@ -1,0 +1,12 @@
+# tambahkan kolom Total_sales dimana Total_sales = (Quantity dikali Price), save hasilnya di tabel manifest-shade-460813-m8.Bank_Muamalat.gabung04
+
+import pandas_gbq
+
+# Read the table from BigQuery
+sql = "SELECT * FROM `manifest-shade-460813-m8.Bank_Muamalat.gabung04`"
+df = pandas_gbq.read_gbq(sql, project_id="manifest-shade-460813-m8", dialect="standard")
+
+# Calculate Total_sales
+df['Total_sales'] = df['Quantity'] * df['Price']
+
+pandas_gbq.to_gbq(df, 'Bank_Muamalat.gabung04', project_id='manifest-shade-460813-m8', if_exists='replace')

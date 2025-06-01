@@ -1,0 +1,13 @@
+# dari tabel-coba02.xlsx ; buat kolom baru total_sales yang merupakan hasil perkalian kolom Order_Quantity dan Product_Price; save hasilnya di /content/tabel-coba03.csv 
+
+import pandas as pd
+
+# Load the Excel file
+df = pd.read_excel('/content/tabel-coba02.xlsx')
+
+# Create the new column 'total_sales'
+df['total_sales'] = df['Order_Quantity'] * df['Product_Price']
+
+# Save the result to a CSV file
+df.to_csv('/content/tabel-coba03.csv', index=False)
+
